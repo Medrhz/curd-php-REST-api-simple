@@ -1,7 +1,6 @@
 <?php
 $method = $_SERVER['REQUEST_METHOD']; // post get put delete
 $id = $id ?? null;
-echo "$id";
 $input = json_decode(file_get_contents("php://input"), true);
 // GET /index.php/users or /users
 if ($method === 'GET') {
@@ -43,7 +42,6 @@ elseif ($method === 'PUT' && $id) {
 elseif ($method === 'DELETE' && $id) {
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
     $stmt->execute([$id]);
-    echo json_encode(["id" => $id]);
     sendResponse(["message" => "Utilisateur supprimé"]);
 } else {
     sendResponse(["error" => "Méthode non autorisée"], 405);
